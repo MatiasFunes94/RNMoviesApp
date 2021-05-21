@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
-import { posterPath } from '../utils/images';
+import { imageUrl } from '../utils/images';
 import FadeInImage from './FadeInImage';
 
 interface Props {
@@ -14,7 +14,7 @@ const ModalComponent = ({ modalVisible, setModalVisible, item }: Props) => {
   const renderLargeOverview = () => {
     return (
       <ScrollView contentContainerStyle={styles.modalView}>
-        <Image source={{ uri: posterPath(item.poster_path) }} style={{ height: 250, width: 160 }} />
+        <Image source={{ uri: imageUrl(item.poster_path) }} style={{ height: 250, width: 160 }} />
         <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
         <Text>{item.overview}</Text>
       </ScrollView>
@@ -37,16 +37,16 @@ const ModalComponent = ({ modalVisible, setModalVisible, item }: Props) => {
               item?.air_date || item?.episode_count ?
                 (item.overview.length < 300 ?
                   <View style={styles.modalView}>
-                    <FadeInImage uri={posterPath(item.poster_path)} style={{ height: 250, width: 160 }} />
+                    <FadeInImage uri={imageUrl(item.poster_path)} style={{ height: 250, width: 160 }} />
                     <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
                     <Text>{item.overview}</Text>
                   </View>
                   : renderLargeOverview())
-                : item?.file_path ? <FadeInImage uri={posterPath(item.file_path)} style={{ height: 210, width: 360, marginBottom: 20 }} />
+                : item?.file_path ? <FadeInImage uri={imageUrl(item.file_path)} style={{ height: 210, width: 360, marginBottom: 20 }} />
                   : item?.character ?
                     <View style={styles.modalView}>
                       {
-                        item.profile_path && <FadeInImage uri={posterPath(item.profile_path)} style={{ height: 400, width: 250, marginBottom: 20 }} />
+                        item.profile_path && <FadeInImage uri={imageUrl(item.profile_path)} style={{ height: 400, width: 250, marginBottom: 20 }} />
                       }
                       <Text style={{ fontSize: 20, textAlign: 'center', width: 200 }}>Name: {item.name}</Text>
                       <Text style={{ fontSize: 20, textAlign: 'center', marginVertical: 10, width: 200 }}>Character: {item.character}</Text>

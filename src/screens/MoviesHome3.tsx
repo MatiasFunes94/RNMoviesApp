@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useMovies } from '../hooks/useMovies';
 import { Movie } from '../interfaces/movieDBinterface';
-import { posterPath } from '../utils/images';
+import { imageUrl } from '../utils/images';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -49,7 +49,7 @@ const Backdrop = ({ movies, scrollX }) => {
               }}
             >
               <Image
-                source={{ uri: posterPath(item.backdrop_path) }}
+                source={{ uri: imageUrl(item.backdrop_path) }}
                 style={{
                   width,
                   height: height * 0.7,
@@ -123,7 +123,7 @@ export default function App() {
                   borderRadius: 30,
                 }}
               >
-                <Image source={{ uri: posterPath(item.poster_path) }} style={{ width: 200, height: 300, borderRadius: 20 }} />
+                <Image source={{ uri: imageUrl(item.poster_path) }} style={{ width: 200, height: 300, borderRadius: 20 }} />
               <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 50 }}>
                   <Icon name='arrow-up' size={35} color='#000' />
                   <Text style={{ fontSize: 25, color: '#000', width: 150, textAlign: 'center' }}>Swipe up</Text>

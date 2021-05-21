@@ -5,7 +5,7 @@ import Svg, { Rect } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { useMovies } from '../hooks/useMovies';
-import { posterPath } from '../utils/images';
+import { imageUrl } from '../utils/images';
 
 const CarouselNew = () => {
 
@@ -40,7 +40,7 @@ const CarouselNew = () => {
                 }}
                 >
                 <Image
-                    source={{ uri: posterPath(item.poster_path) }}
+                    source={{ uri: imageUrl(item.poster_path) }}
                     style={{ height: 400, width: 250, margin: 10, borderRadius: 30 }}
                 />
             </Animated.View>
@@ -72,7 +72,7 @@ const CarouselNew = () => {
                         // </MaskedView>
                         <View>
                             <Image
-                                source={{ uri: posterPath(item.backdrop_path) }}
+                                source={{ uri: imageUrl(item.backdrop_path) }}
                                 style={{
                                     width: 500,
                                     height: height * 0.6,

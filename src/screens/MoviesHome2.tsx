@@ -6,7 +6,7 @@ import { useMovies } from '../hooks/useMovies';
 import { useCarousel } from '../hooks/useCarousel';
 import { useBackgroundBluredImage } from '../hooks/useBackgroundBluredImage';
 import { Movie } from '../interfaces/movieDBinterface';
-import { posterPath } from '../utils/images';
+import { imageUrl } from '../utils/images';
 
 import MaskedView from '@react-native-community/masked-view';
 import Svg, { Rect } from 'react-native-svg';
@@ -70,7 +70,7 @@ export default () => {
               <Animated.View
                 style={{transform: [{translateX}]}}
               >
-                <Image source={{ uri: posterPath(item.poster_path) }} style={{ width, height: height * 0.75, }} />
+                <Image source={{ uri: imageUrl(item.poster_path) }} style={{ width, height: height * 0.75, }} />
               </Animated.View>
             )
           }}
@@ -104,7 +104,7 @@ export default () => {
     return (
     <View style={{ justifyContent: 'center' }}>
         <Animated.View style={{ justifyContent: 'center', alignItems: 'center', marginHorizontal: 20, padding: 20, borderRadius: 30, backgroundColor: 'white', height: 350, transform: [{translateY}] }}>
-          <Image source={{ uri: posterPath(item.poster_path) }} style={{ width: 200, height: 300, borderRadius: 20 }} />
+          <Image source={{ uri: imageUrl(item.poster_path) }} style={{ width: 200, height: 300, borderRadius: 20 }} />
         </Animated.View>
     </View>
     )

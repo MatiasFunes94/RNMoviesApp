@@ -6,7 +6,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { posterPath } from '../utils/images';
+import { imageUrl } from '../utils/images';
 import { RootStackParams } from '../navigation/Navigation';
 import { useMovieDetail } from '../hooks/useMovieDetail';
 import SliderScreenshots from '../components/SliderScreenshots';
@@ -76,7 +76,7 @@ const DetailScreen = ({ route }: Props) => {
               width={width}
               height={350}
               preserveAspectRatio="xMidYMid slice"
-              href={{ uri: posterPath(data?.backdrop_path) }}
+              href={{ uri: imageUrl(data?.backdrop_path) }}
             /> 
           </Svg>
         }
@@ -177,7 +177,7 @@ const DetailScreen = ({ route }: Props) => {
               width={width}
               height={350}
               preserveAspectRatio="xMidYMid slice"
-              href={{ uri: posterPath(data?.backdrop_path) }}
+              href={{ uri: imageUrl(data?.backdrop_path) }}
             />
           </Svg>
         }
