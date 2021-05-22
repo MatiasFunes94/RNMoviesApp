@@ -1,15 +1,14 @@
 import React from 'react';
 // import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet } from 'react-native';
 
-import MoviesHome from '../screens/MoviesHome';
+import MoviesHomeBlured from '../screens/MoviesHome';
+import MoviesHomeAlternative from '../screens/MoviesHomeAlternative';
 import SearchScreen from '../screens/SearchScreen';
 import SeriesHome from '../screens/SeriesHome';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MoviesHome2 from '../screens/MoviesHome2';
-import MoviesHome3 from '../screens/MoviesHome3';
 
-// const TopTabs = createMaterialTopTabNavigator();
 const TopTabs = createBottomTabNavigator();
 
 const TopTabsNavigator = () => {
@@ -21,26 +20,13 @@ const TopTabsNavigator = () => {
     tabBarOptions={{
       activeTintColor: '#000',
       labelPosition: 'beside-icon',
-      labelStyle: {
-        fontSize: 15,
-        color: '#fff',
-        width: 50,
-      },
+      labelStyle: styles.tabBarOpt_labelStyle,
       activeBackgroundColor: 'rgba(255,255,255,0.2)',
-      style: {
-        position: 'absolute',
-        top: 0,
-        backgroundColor: 'rgba(000,000,000,0.7)',
-        elevation: 0,
-        borderBottomWidth: 1,
-        borderBottomColor: '#fff',
-        borderTopWidth: 0,
-      }
+      style: styles.tabBarOpt_style,
     }}
     >
-      {/* <TopTabs.Screen name="Movies" component={MoviesHome} /> */}
-      {/* <TopTabs.Screen name="Movies" component={MoviesHome2} /> */}
-      <TopTabs.Screen name="Movies" component={MoviesHome3} />
+      {/* <TopTabs.Screen name="Movies" component={MoviesHomeBlured} /> */}
+      <TopTabs.Screen name="Movies" component={MoviesHomeAlternative} />
       <TopTabs.Screen
         options={{
           tabBarLabel: 'Search',
@@ -59,3 +45,20 @@ const TopTabsNavigator = () => {
 }
 
 export default TopTabsNavigator;
+
+const styles = StyleSheet.create({
+  tabBarOpt_labelStyle: {
+    fontSize: 15,
+    color: '#fff',
+    width: 50,
+  },
+  tabBarOpt_style: {
+    position: 'absolute',
+    top: 0,
+    backgroundColor: 'rgba(000,000,000,0.7)',
+    elevation: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+    borderTopWidth: 0,
+  }
+})

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   FlatList,
-  View,
   ViewStyle
 } from 'react-native';
 import { Cast } from '../interfaces/creditsInterface';

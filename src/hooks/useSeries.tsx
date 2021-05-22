@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { movieDB, genresDB, serieDB } from '../api/movieDB';
-import { MovieDBMoviesResponse, Movie, } from '../interfaces/movieDBinterface';
+import { genresDB, serieDB } from '../api/movieDB';
 import { GenresInterface, GenreInterface } from '../interfaces/genresInterface';
 import { Serie, SerieDBSeriesResponse } from '../interfaces/serieDBinterface';
 

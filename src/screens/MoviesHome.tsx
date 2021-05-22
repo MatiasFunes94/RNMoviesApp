@@ -9,18 +9,18 @@ import { useBackgroundBluredImage } from '../hooks/useBackgroundBluredImage';
 export default () => {
 
   const { nowPlaying, populars, topRated, upcoming } = useMovies();
-  const { carouselMovies, scrollX } = useCarousel();
-  const { moviesBluredImage } = useBackgroundBluredImage();
+  const { renderCarousel, scrollX } = useCarousel(nowPlaying);
+  const { renderFlatlistBluredImage } = useBackgroundBluredImage(nowPlaying, scrollX);
 
   const { height } = Dimensions.get('screen');
   return (
     <ScrollView>
       <View>
         <View style={{ height }}>
-          {scrollX && moviesBluredImage(scrollX)}
+          {scrollX && renderFlatlistBluredImage()}
         </View>
-        {nowPlaying && carouselMovies()}
-        <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
+        {nowPlaying && renderCarousel()}
+        <View style={styles.container}>
           <SliderMovie data={populars} customStyles={styles.posters} title={'Populars'} />
           <SliderMovie data={topRated} customStyles={styles.posters} title={'Top rated'} />
           <SliderMovie data={upcoming} customStyles={styles.posters} title={'Upcoming'} />
@@ -32,17 +32,12 @@ export default () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 20
   },
   posters: {
     height: 220,
     width: 140,
     marginHorizontal: 7,
-  },
-  nowPlayingMovies: {
-    height: 380,
-    width: 250,
   },
 })

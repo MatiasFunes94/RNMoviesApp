@@ -1,5 +1,11 @@
 import React from 'react'
-import { FlatList, Image, StyleSheet, Text, View, ViewStyle } from 'react-native'
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  View,
+  ViewStyle
+} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { imageUrl } from '../utils/images';
 

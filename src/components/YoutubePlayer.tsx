@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useRef } from "react";
-import { Button, View, Alert } from "react-native";
+import React, { useCallback } from "react";
+import { View, Alert } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 
 interface Props {
@@ -15,10 +15,6 @@ const YoutubePlayerComponent = ({playing, setPlaying, videoToPlay}: Props) => {
       setPlaying(false);
       Alert.alert("video has finished playing!");
     }
-  }, []);
-
-  const togglePlaying = useCallback(() => {
-    setPlaying((prev) => !prev);
   }, []);
 
   return (

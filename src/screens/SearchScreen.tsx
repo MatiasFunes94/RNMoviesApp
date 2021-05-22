@@ -12,10 +12,10 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
 
+import { useMovies } from '../hooks/useMovies';
+import { useMultiSearch } from '../hooks/useMultiSearch';
 import SearchHeader from '../components/SearchHeader';
 import { RootStackParams } from '../navigation/Navigation';
-import { useMultiSearch } from '../hooks/useMultiSearch';
-import { useMovies } from '../hooks/useMovies';
 import { imageUrl, smallImages } from '../utils/images';
 import { Movie } from '../interfaces/movieDBinterface';
 import { Serie } from '../interfaces/serieDBinterface';

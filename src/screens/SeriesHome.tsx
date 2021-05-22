@@ -15,17 +15,17 @@ import { useBackgroundBluredImage } from '../hooks/useBackgroundBluredImage';
 export default () => {
 
   const { airingTodaySeries, popularsSeries, topRatedSeries } = useSeries();
-  const { carouselSeries, scrollX } = useCarousel();
-  const { seriesBluredImage } = useBackgroundBluredImage();
+  const { renderCarousel, scrollX } = useCarousel(popularsSeries);
+  const { renderFlatlistBluredImage } = useBackgroundBluredImage(popularsSeries, scrollX);
 
   const { height } = Dimensions.get('screen');
 
   return (
     <ScrollView >
       <View style={{ height }}>
-        {seriesBluredImage(scrollX)}
+        {renderFlatlistBluredImage()}
       </View>
-      {carouselSeries()}
+      {renderCarousel()}
       <View style={styles.container}>
         <SliderMovie data={airingTodaySeries} customStyles={styles.posters} title={'Airing today'} />
         <SliderMovie data={popularsSeries} customStyles={styles.posters} title={'Populars'} />

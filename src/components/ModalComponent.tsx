@@ -1,5 +1,12 @@
 import React from "react";
-import { Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Image
+} from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 import { imageUrl } from '../utils/images';
 import FadeInImage from './FadeInImage';
@@ -22,24 +29,30 @@ const ModalComponent = ({ modalVisible, setModalVisible, item }: Props) => {
 
   const renderLargeOverview = () => (
     <ScrollView contentContainerStyle={styles.modalView}>
-      <Image source={{ uri: imageUrl(item.poster_path) }} style={{ height: 250, width: 160 }} />
-      <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
+      <Image
+        source={{ uri: imageUrl(item.poster_path) }}
+        style={styles.overViewImage}
+      />
+      <Text style={styles.overViewText} >{item.name}</Text>
       <Text>{item.overview}</Text>
     </ScrollView>
   )
 
   const renderSmallOverview = () => (
     <View style={styles.modalView}>
-      <FadeInImage uri={imageUrl(item.poster_path)} style={{ height: 250, width: 160 }} />
-      <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
+      <FadeInImage
+        uri={imageUrl(item.poster_path)}
+        style={styles.overViewImage}
+      />
+      <Text style={styles.overViewText}>{item.name}</Text>
       <Text>{item.overview}</Text>
     </View>
   )
 
   const renderScreenshot = (item: Movie | Serie) => (
-    <FadeInImage 
-      uri={imageUrl(item.file_path)} 
-      style={{ height: 210, width: 360, marginBottom: 20 }} 
+    <FadeInImage
+      uri={imageUrl(item.file_path)}
+      style={styles.screenshotStyle}
     />
   )
 
@@ -47,11 +60,15 @@ const ModalComponent = ({ modalVisible, setModalVisible, item }: Props) => {
     return (
       <View style={styles.modalView}>
         {
-          item.profile_path && <FadeInImage uri={imageUrl(item.profile_path)} style={{ height: 400, width: 250, marginBottom: 20 }} />
+          item.profile_path &&
+          <FadeInImage
+            uri={imageUrl(item.profile_path)}
+            style={styles.imageCast}
+          />
         }
-        <Text style={{ fontSize: 20, textAlign: 'center', width: 200 }}>Name: {item.name}</Text>
-        <Text style={{ fontSize: 20, textAlign: 'center', marginVertical: 10, width: 200 }}>Character: {item.character}</Text>
-        <Text style={{ width: 200, textAlign: 'center', fontSize: 18 }}>{item.known_for_department}</Text>
+        <Text style={styles.nameCast}>Name: {item.name}</Text>
+        <Text style={styles.characterCast}>Character: {item.character}</Text>
+        <Text style={styles.departmentCast}>{item.known_for_department}</Text>
       </View>
     )
   }
@@ -67,8 +84,8 @@ const ModalComponent = ({ modalVisible, setModalVisible, item }: Props) => {
           setModalVisible(false);
         }}
       >
-        <Pressable 
-          style={styles.pressableStyle} 
+        <Pressable
+          style={styles.pressableStyle}
           onPress={() => setModalVisible(false)}
         >
           <View style={styles.centeredView}>
@@ -113,30 +130,43 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 10
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    width: 270,
-    marginVertical: 10
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#E50914",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  },
   pressableStyle: {
     flex: 1,
     backgroundColor: 'rgba(000,000,000,0.6)'
+  },
+  overViewImage: {
+    height: 250,
+    width: 160
+  },
+  overViewText: {
+    marginTop: 10,
+    fontSize: 18
+  },
+  screenshotStyle: {
+    height: 210,
+    width: 360,
+    marginBottom: 20
+  },
+  imageCast: {
+    height: 400,
+    width: 250,
+    marginBottom: 20,
+    marginTop: 7,
+  },
+  nameCast: {
+    fontSize: 20, 
+    textAlign: 'center', 
+    width: 200
+  },
+  characterCast: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginVertical: 10,
+    width: 200
+  },
+  departmentCast: {
+    width: 200,
+    textAlign: 'center',
+    fontSize: 18
   }
 });

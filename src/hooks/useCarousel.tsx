@@ -11,14 +11,9 @@ import Carousel from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
 
-import { useMovies } from '../hooks/useMovies';
-import { useSeries } from '../hooks/useSeries';
 import { imageUrl } from '../utils/images';
 
-export const useCarousel = () => {
-
-  const { nowPlaying } = useMovies();
-  const { popularsSeries } = useSeries();
+export const useCarousel = (data) => {
   const { navigate } = useNavigation();
 
   const { height, width } = Dimensions.get('screen');
@@ -31,7 +26,11 @@ export const useCarousel = () => {
   const keyExtractor = (item, index) => String(index)
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={{ ...styles.containerItemCarousel, width }} activeOpacity={0.8} onPress={() => navigate('DetailScreen', item)}>
+    <TouchableOpacity 
+      style={{ ...styles.containerItemCarousel, width }} 
+      activeOpacity={0.8} 
+      onPress={() => navigate('DetailScreen', item)}
+    >
       <Animated.Image
         source={{ uri: imageUrl(item.poster_path) }}
         style={{ ...styles.aniamtedImage, width: imageW }}
@@ -46,35 +45,11 @@ export const useCarousel = () => {
     </View>
   )
 
-  const carouselMovies = () => {
+  const renderCarousel = () => {
     return (
       <View style={styles.containerCarousel}>
         <Carousel
-          data={nowPlaying}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-          sliderWidth={width}
-          itemWidth={width}
-          // autoplay
-          // autoplayDelay={500}
-          // autoplayInterval={3000}
-          onScroll={
-            Animated.event(
-              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-              { useNativeDriver: true }
-            )
-          }
-        />
-        {renderSwipeText()}
-      </View>
-    )
-  }
-
-  const carouselSeries = () => {
-    return (
-      <View style={styles.containerCarousel}>
-        <Carousel
-          data={popularsSeries}
+          data={data}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
           sliderWidth={width}
@@ -95,8 +70,7 @@ export const useCarousel = () => {
   }
 
   return {
-    carouselMovies,
-    carouselSeries,
+    renderCarousel,
     scrollX,
   }
 }

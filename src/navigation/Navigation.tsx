@@ -4,7 +4,6 @@ import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import SearchScreen from '../screens/SearchScreen';
 import { Movie } from '../interfaces/movieDBinterface';
-import YoutubePlayerComponent from '../components/YoutubePlayer';
 
 export type RootStackParams = {
   Home: undefined;

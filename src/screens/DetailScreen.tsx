@@ -6,23 +6,24 @@ import {
   Dimensions,
   StyleSheet,
   ActivityIndicator,
-  Animated
+  Animated,
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 import Svg, { Image, ClipPath, Circle } from 'react-native-svg';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/core';
 
-import { imageUrl } from '../utils/images';
-import { RootStackParams } from '../navigation/Navigation';
 import { useMovieDetail } from '../hooks/useMovieDetail';
+import { useAnimation } from '../hooks/useAnimation';
+import { useSerieDetail } from '../hooks/useSerieDetail';
 import SliderScreenshots from '../components/SliderScreenshots';
 import SliderCast from '../components/SliderCast';
-import { useNavigation } from '@react-navigation/core';
-import { useSerieDetail } from '../hooks/useSerieDetail';
 import ModalComponent from '../components/ModalComponent';
 import YoutubePlayerComponent from '../components/YoutubePlayer';
-import { useAnimation } from '../hooks/useAnimation';
+import { RootStackParams } from '../navigation/Navigation';
+import { imageUrl } from '../utils/images';
 
 interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> { };
 
@@ -59,7 +60,7 @@ const DetailScreen = ({ route }: Props) => {
       <>
         <ActivityIndicator
           style={{ alignItems: 'center', top: 125 }}
-          color="red"
+          color="#000"
           size={40}
         />
         <YoutubePlayerComponent playing={playing} setPlaying={setPlaying} videoToPlay={videoToPlay} />
@@ -111,7 +112,7 @@ const DetailScreen = ({ route }: Props) => {
           {playing && YoutubeComponent(playing, setPlaying)}
           {
             isLoadingMovie ?
-              <ActivityIndicator size={50} color='red' style={{ marginTop: 100 }} /> :
+              <ActivityIndicator size={50} color='#000' style={{ marginTop: 100 }} /> :
               <Animated.View style={{ paddingHorizontal: 20, opacity }}>
                 <View style={styles.containerTitle}>
                   <Text style={styles.title}>{movieFull?.title}</Text>
@@ -236,7 +237,7 @@ const DetailScreen = ({ route }: Props) => {
           {playing && YoutubeComponent(playing, setPlaying)}
           {
             isLoadingSerie ?
-              <ActivityIndicator size={50} color='red' style={{ marginTop: 100 }} /> :
+              <ActivityIndicator size={50} color='#000' style={{ marginTop: 100 }} /> :
               <Animated.View style={{ paddingHorizontal: 20, opacity }}>
                 <View style={styles.containerTitle}>
                   <Text style={styles.title}>{serieFull?.name}</Text>
