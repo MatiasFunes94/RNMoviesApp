@@ -13,6 +13,9 @@ export default ({ data, customStyles }: Props) => {
   const handleOnPress = () => {
     return navigation.navigate('DetailScreen', data)
   }
+  if (!data.poster_path) {
+    return null;
+  }
   return (
     <TouchableOpacity style={[styles.shadow, customStyles]} activeOpacity={0.8} onPress={handleOnPress}>
       <View style={styles.imageContainer}>

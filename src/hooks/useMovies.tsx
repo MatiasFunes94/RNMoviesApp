@@ -4,8 +4,8 @@ import { MovieDBMoviesResponse, Movie, } from '../interfaces/movieDBinterface';
 import { GenresInterface, GenreInterface } from '../interfaces/genresInterface';
 
 interface MovieState {
-  // nowPlaying: Movie[],
-  nowPlaying: any,
+  nowPlaying: Movie[],
+  // nowPlaying: any, //uncomment for render alternative
   populars: Movie[],
   topRated: Movie[],
   upcoming: Movie[],
@@ -33,8 +33,8 @@ export const useMovies = () => {
     const upcomingPromise = await movieDB.get<MovieDBMoviesResponse>('/upcoming')
     const res = await Promise.all([nowPlayingPromise, popularsPromise, topRatedPromise, upcomingPromise])
     setMovies({
-      nowPlaying: [{ id: 'left-spacer' }, ...res[0].data.results, { id: 'right-spacer' }],
-      // nowPlaying: res[0].data.results,
+      // nowPlaying: [{ id: 'left-spacer' }, ...res[0].data.results, { id: 'right-spacer' }], //uncomment for render alternative
+      nowPlaying: res[0].data.results,
       populars: res[1].data.results,
       topRated: res[2].data.results,
       upcoming: res[3].data.results,

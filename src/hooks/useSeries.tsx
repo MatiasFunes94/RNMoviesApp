@@ -6,6 +6,7 @@ import { Serie, SerieDBSeriesResponse } from '../interfaces/serieDBinterface';
 interface SerieState {
   airingTodaySeries: Serie[];
   popularsSeries: Serie[];
+  // popularsSeries: any; //uncomment for render alternative
   topRatedSeries: Serie[];
 }
 
@@ -29,6 +30,7 @@ export const useSeries = () => {
     const res = await Promise.all([airingTodayPromise, popularsPromise, topRatedPromise])
     setSeries({
       airingTodaySeries: res[0].data.results,
+      // popularsSeries: [{ id: 'left-spacer' }, ...res[1].data.results, { id: 'right-spacer' }], //uncomment for render alternative
       popularsSeries: res[1].data.results,
       topRatedSeries: res[2].data.results,
     })

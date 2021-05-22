@@ -113,7 +113,13 @@ const DetailScreen = ({ route }: Props) => {
           {
             isLoadingMovie ?
               <ActivityIndicator size={50} color='#000' style={{ marginTop: 100 }} /> :
-              <Animated.View style={{ paddingHorizontal: 20, opacity }}>
+              <Animated.View 
+                style={{
+                  paddingHorizontal: 20,
+                  opacity,
+                  marginTop: !data?.backdrop_path ? 40 : 0
+                }}
+              >
                 <View style={styles.containerTitle}>
                   <Text style={styles.title}>{movieFull?.title}</Text>
                 </View>
@@ -238,7 +244,13 @@ const DetailScreen = ({ route }: Props) => {
           {
             isLoadingSerie ?
               <ActivityIndicator size={50} color='#000' style={{ marginTop: 100 }} /> :
-              <Animated.View style={{ paddingHorizontal: 20, opacity }}>
+              <Animated.View
+                style={{
+                  paddingHorizontal: 20,
+                  opacity,
+                  marginTop: !data?.backdrop_path ? 40 : 0
+                }}
+              >
                 <View style={styles.containerTitle}>
                   <Text style={styles.title}>{serieFull?.name}</Text>
                 </View>

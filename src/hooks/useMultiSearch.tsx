@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-export const useMultiSearch = (userInput: string) => {
+export const useMultiSearch = (userInput = '') => {
 
   const [isLoadingSearch, setIsLoadingSearch] = useState(true)
   const [multiSearch, setMultiSearch] = useState([])

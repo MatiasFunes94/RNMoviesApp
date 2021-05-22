@@ -4,10 +4,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
 
 import MoviesHomeBlured from '../screens/MoviesHome';
-import MoviesHomeAlternative from '../screens/MoviesHomeAlternative';
-import SearchScreen from '../screens/SearchScreen';
 import SeriesHome from '../screens/SeriesHome';
 import Icon from 'react-native-vector-icons/Ionicons';
+import SeriesHomeAlternative from '../screens/SeriesHomeAlternative';
+
+//Alternatives
+import MoviesHomeAlternative from '../screens/MoviesHomeAlternative';
+import SearchScreen from '../screens/SearchScreen';
 
 const TopTabs = createBottomTabNavigator();
 
@@ -25,8 +28,8 @@ const TopTabsNavigator = () => {
       style: styles.tabBarOpt_style,
     }}
     >
-      {/* <TopTabs.Screen name="Movies" component={MoviesHomeBlured} /> */}
-      <TopTabs.Screen name="Movies" component={MoviesHomeAlternative} />
+      <TopTabs.Screen name="Movies" component={MoviesHomeBlured} />
+      {/* <TopTabs.Screen name="Movies" component={MoviesHomeAlternative} /> */}
       <TopTabs.Screen
         options={{
           tabBarLabel: 'Search',
@@ -40,6 +43,7 @@ const TopTabsNavigator = () => {
         }}
       name="Search" component={SearchScreen} />
       <TopTabs.Screen name="Series" component={SeriesHome} />
+      {/* <TopTabs.Screen name="Series" component={SeriesHomeAlternative} /> */}
     </TopTabs.Navigator>
   );
 }
