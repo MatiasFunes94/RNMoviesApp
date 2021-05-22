@@ -8,7 +8,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
@@ -18,15 +17,17 @@ import { RootStackParams } from '../navigation/Navigation';
 import { useMultiSearch } from '../hooks/useMultiSearch';
 import { useMovies } from '../hooks/useMovies';
 import { imageUrl, smallImages } from '../utils/images';
+import { Movie } from '../interfaces/movieDBinterface';
+import { Serie } from '../interfaces/serieDBinterface';
 
 interface Props extends StackScreenProps<RootStackParams, 'SearchScreen'> { };
 
-interface Props {
-  data?: [];
-}
-
-const popularItem = ({ item, handleNavigate }) => (
-  <TouchableOpacity style={styles.popularItemContainer} onPress={() => handleNavigate('DetailScreen', item)}>
+const popularItem = (item: Movie | Serie, handleNavigate: (screen: string, item: Movie | Serie) => void) => (
+  <TouchableOpacity
+    style={styles.popularItemContainer}
+    onPress={() => handleNavigate('DetailScreen', item)}
+    activeOpacity={0.5}
+  >
     <Image source={{ uri: smallImages(item.backdrop_path) }} style={styles.popularItemImage} />
     <View style={styles.popularItemContainerTitle}>
       <Text style={styles.popularItemTitle}>{item.title || item.name}</Text>
@@ -35,27 +36,28 @@ const popularItem = ({ item, handleNavigate }) => (
   </TouchableOpacity>
 )
 
-const listMostViewed = (data, handleNavigate) => {
-  const dataToRender = data.filter((x) => x.id !== 'left-spacer' && x.id !== 'right-spacer')
+const listMostViewed = (data: (Movie | Serie)[], handleNavigate: (screen: string, item: Movie | Serie) => void) => {
+  const dataToRender = data.filter((movie) => movie.id !== 'left-spacer' && movie.id !== 'right-spacer')
   return (
     <View style={styles.containerMostViewed}>
       <Text style={styles.textMostViewed}>Most viewed</Text>
       <FlatList
         data={dataToRender}
-        renderItem={popularItem}
+        renderItem={({ item }) => popularItem(item, handleNavigate)}
         keyExtractor={(item, index) => String(index)}
+        contentContainerStyle={{ paddingBottom: 80 }}
       />
     </View>
   )
 }
 
-const listMoviesSearched = (multiSearch, handleNavigate) => {
+const listMoviesSearched = (multiSearch: (Movie | Serie)[], handleNavigate: (screen: string, item: Movie | Serie) => void) => {
   return (
     <ScrollView>
       <Text style={styles.textMoviesSearched}>Movies and Series</Text>
       <View style={styles.containerMoviesSearched}>
         {
-          multiSearch!.map((item, index) => {
+          multiSearch!.map((item: Movie | Serie, index: number) => {
             if (item.poster_path) {
               return (
                 <TouchableOpacity key={index} activeOpacity={0.5} onPress={() => handleNavigate('DetailScreen', item)}>
@@ -64,7 +66,12 @@ const listMoviesSearched = (multiSearch, handleNavigate) => {
               )
             }
             return (
-              <TouchableOpacity activeOpacity={0.5} key={index} style={styles.textSearched} onPress={() => handleNavigate('DetailScreen', item)}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                key={index}
+                style={styles.textSearched}
+                onPress={() => handleNavigate('DetailScreen', item)}
+              >
                 <View style={styles.containerPosterNotFound}>
                   <Icon name='information-circle-outline' size={35} color='#000' style={{ marginRight: 10 }} />
                   <Text>Poster not found</Text>
@@ -79,14 +86,14 @@ const listMoviesSearched = (multiSearch, handleNavigate) => {
   )
 }
 
-const SearchScreen = ({ route }: Props) => {
+const SearchScreen = () => {
 
   const [userInput, onChangeText] = useState('')
 
   const { isLoadingSearch, multiSearch } = useMultiSearch(userInput);
   const { navigate } = useNavigation();
 
-  const handleNavigate = (route: string, data) => {
+  const handleNavigate = (route: string, data: Movie | Serie) => {
     navigate(route, data);
   }
 
@@ -98,8 +105,8 @@ const SearchScreen = ({ route }: Props) => {
       <SearchHeader onChangeText={onChangeText} userInput={userInput} />
       {
         multiSearch.length === 0 ?
-        listMostViewed(nowPlaying, handleNavigate) :
-        listMoviesSearched(multiSearch, handleNavigate)
+          listMostViewed(nowPlaying, handleNavigate) :
+          listMoviesSearched(multiSearch, handleNavigate)
       }
     </View>
   )
@@ -133,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ebecf0'
   },
   popularItemImage: {
-    height: 80, 
+    height: 80,
     width: 140
   },
   popularItemContainerTitle: {

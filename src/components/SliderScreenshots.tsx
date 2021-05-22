@@ -6,12 +6,11 @@ import { imageUrl } from '../utils/images';
 interface Props {
   customStyles?: ViewStyle,
   data: any;
-  setModalVisible: any;
+  setModalVisible: (bool: boolean) => void;
   setItemToShowInModal: any;
 }
 
-const renderScreenshot = (item, customStyles, setModalVisible, setItemToShowInModal) => {
-
+const renderScreenshot = (item, customStyles: Props['customStyles'], setModalVisible: Props['setModalVisible'], setItemToShowInModal) => {
   const showModal = () => {
     setItemToShowInModal(item)
     setModalVisible(true)
@@ -33,7 +32,7 @@ const SliderScreenshots = ({ customStyles, data, setModalVisible, setItemToShowI
     <View>
       <FlatList
         data={data}
-        renderItem={({ item }: any) => renderScreenshot(item, customStyles, setModalVisible, setItemToShowInModal)}
+        renderItem={({ item }) => renderScreenshot(item, customStyles, setModalVisible, setItemToShowInModal)}
         keyExtractor={(item, index) => String(index)}
         horizontal={true}
         showsHorizontalScrollIndicator={false}

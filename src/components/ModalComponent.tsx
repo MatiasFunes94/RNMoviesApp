@@ -3,6 +3,8 @@ import { Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 import { imageUrl } from '../utils/images';
 import FadeInImage from './FadeInImage';
+import { Serie } from '../interfaces/serieDBinterface';
+import { Movie } from '../interfaces/movieDBinterface';
 
 interface Props {
   modalVisible: boolean;
@@ -11,15 +13,49 @@ interface Props {
 }
 
 const ModalComponent = ({ modalVisible, setModalVisible, item }: Props) => {
-  const renderLargeOverview = () => {
+  const renderOverview = (item: Movie | Serie) => {
+    if (item.overview.length < 300) {
+      return renderSmallOverview();
+    }
+    return renderLargeOverview();
+  }
+
+  const renderLargeOverview = () => (
+    <ScrollView contentContainerStyle={styles.modalView}>
+      <Image source={{ uri: imageUrl(item.poster_path) }} style={{ height: 250, width: 160 }} />
+      <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
+      <Text>{item.overview}</Text>
+    </ScrollView>
+  )
+
+  const renderSmallOverview = () => (
+    <View style={styles.modalView}>
+      <FadeInImage uri={imageUrl(item.poster_path)} style={{ height: 250, width: 160 }} />
+      <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
+      <Text>{item.overview}</Text>
+    </View>
+  )
+
+  const renderScreenshot = (item: Movie | Serie) => (
+    <FadeInImage 
+      uri={imageUrl(item.file_path)} 
+      style={{ height: 210, width: 360, marginBottom: 20 }} 
+    />
+  )
+
+  const renderCast = (item: Movie | Serie) => {
     return (
-      <ScrollView contentContainerStyle={styles.modalView}>
-        <Image source={{ uri: imageUrl(item.poster_path) }} style={{ height: 250, width: 160 }} />
-        <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
-        <Text>{item.overview}</Text>
-      </ScrollView>
+      <View style={styles.modalView}>
+        {
+          item.profile_path && <FadeInImage uri={imageUrl(item.profile_path)} style={{ height: 400, width: 250, marginBottom: 20 }} />
+        }
+        <Text style={{ fontSize: 20, textAlign: 'center', width: 200 }}>Name: {item.name}</Text>
+        <Text style={{ fontSize: 20, textAlign: 'center', marginVertical: 10, width: 200 }}>Character: {item.character}</Text>
+        <Text style={{ width: 200, textAlign: 'center', fontSize: 18 }}>{item.known_for_department}</Text>
+      </View>
     )
   }
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -31,27 +67,18 @@ const ModalComponent = ({ modalVisible, setModalVisible, item }: Props) => {
           setModalVisible(false);
         }}
       >
-        <Pressable style={{ flex: 1, backgroundColor: 'rgba(000,000,000,0.6)' }} onPress={() => setModalVisible(false)}>
+        <Pressable 
+          style={styles.pressableStyle} 
+          onPress={() => setModalVisible(false)}
+        >
           <View style={styles.centeredView}>
             {
               item?.air_date || item?.episode_count ?
-                (item.overview.length < 300 ?
-                  <View style={styles.modalView}>
-                    <FadeInImage uri={imageUrl(item.poster_path)} style={{ height: 250, width: 160 }} />
-                    <Text style={{ marginTop: 10, fontSize: 18 }} >{item.name}</Text>
-                    <Text>{item.overview}</Text>
-                  </View>
-                  : renderLargeOverview())
-                : item?.file_path ? <FadeInImage uri={imageUrl(item.file_path)} style={{ height: 210, width: 360, marginBottom: 20 }} />
+                renderOverview(item)
+                : item?.file_path ?
+                  renderScreenshot(item)
                   : item?.character ?
-                    <View style={styles.modalView}>
-                      {
-                        item.profile_path && <FadeInImage uri={imageUrl(item.profile_path)} style={{ height: 400, width: 250, marginBottom: 20 }} />
-                      }
-                      <Text style={{ fontSize: 20, textAlign: 'center', width: 200 }}>Name: {item.name}</Text>
-                      <Text style={{ fontSize: 20, textAlign: 'center', marginVertical: 10, width: 200 }}>Character: {item.character}</Text>
-                      <Text style={{ width: 200, textAlign: 'center', fontSize: 18 }}>{item.known_for_department}</Text>
-                    </View>
+                    renderCast(item)
                     : null
             }
           </View>
@@ -107,5 +134,9 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center"
+  },
+  pressableStyle: {
+    flex: 1,
+    backgroundColor: 'rgba(000,000,000,0.6)'
   }
 });
