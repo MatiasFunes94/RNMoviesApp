@@ -39,7 +39,7 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   containerSplash: {
     flex: 1,
-    backgroundColor: '#790001'
+    backgroundColor: '#9a0000'
   },
   containerPlayButton: {
     justifyContent: 'center',
