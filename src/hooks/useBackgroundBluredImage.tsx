@@ -32,7 +32,7 @@ export const useBackgroundBluredImage = (data, scrollX) => {
       )
     )
   }
-
+  
   return {
     renderFlatlistBluredImage,
   }

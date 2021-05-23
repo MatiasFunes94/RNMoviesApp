@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, Dimensions, StyleSheet, ScrollView } from 'react-native'
+import {
+  View,
+  Dimensions,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator
+} from 'react-native';
 
 import SliderMovie from '../components/SliderMovie';
 import { useMovies } from '../hooks/useMovies';
@@ -13,6 +19,7 @@ export default () => {
   const { renderFlatlistBluredImage } = useBackgroundBluredImage(nowPlaying, scrollX);
 
   const { height } = Dimensions.get('screen');
+
   return (
     <ScrollView>
       <View>

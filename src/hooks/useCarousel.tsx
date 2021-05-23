@@ -68,7 +68,7 @@ export const useCarousel = (data) => {
       </View>
     )
   }
-
+  
   return {
     renderCarousel,
     scrollX,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   containerSwipe: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50
+    marginTop: 100
   },
   containerItemCarousel: {
     alignItems: 'center'
