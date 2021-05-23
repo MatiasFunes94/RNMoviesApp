@@ -19,7 +19,7 @@ export default () => {
 
   return (
     <ScrollView>
-      <View style={{ height }}>
+      <View style={{ height, backgroundColor: '#ebecf0' }}>
         {renderFlatlistBackground()}
         {renderFlatlistCarousel()}
       </View>

@@ -93,7 +93,7 @@ export const useCarouselAlternative = (data) => {
 
 const styles = StyleSheet.create({
   containerPosterItem: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ebecf0',
     borderRadius: 30,
     alignItems: 'center',
   },

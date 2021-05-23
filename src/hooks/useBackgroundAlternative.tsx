@@ -60,7 +60,7 @@ export const useBackgroundAlternative = (data, scrollX) => {
         renderItem={({ item, index }) => renderBackDropItem(item, index)}
       />
       <LinearGradient
-        colors={['transparent', '#fff']}
+        colors={['transparent', '#ebecf0']}
         style={{
           width,
           height: height * 0.45,

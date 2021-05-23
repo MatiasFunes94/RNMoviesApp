@@ -1,20 +1,19 @@
 import React from 'react';
-// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import MoviesHomeBlured from '../screens/MoviesHome';
 import SeriesHome from '../screens/SeriesHome';
-import Icon from 'react-native-vector-icons/Ionicons';
-import SeriesHomeAlternative from '../screens/SeriesHomeAlternative';
+import SearchScreen from '../screens/SearchScreen';
 
 //Alternatives
 import MoviesHomeAlternative from '../screens/MoviesHomeAlternative';
-import SearchScreen from '../screens/SearchScreen';
+import SeriesHomeAlternative from '../screens/SeriesHomeAlternative';
 
 const TopTabs = createBottomTabNavigator();
 
-const TopTabsNavigator = () => {
+const TopTabsNavigator = () => { 
   return (
     <TopTabs.Navigator
     sceneContainerStyle={{
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
   tabBarOpt_style: {
     position: 'absolute',
     top: 0,
-    backgroundColor: 'rgba(000,000,000,0.7)',
+    backgroundColor: 'rgba(000,000,000,0.9)',
     elevation: 0,
     borderBottomWidth: 1,
     borderBottomColor: '#fff',

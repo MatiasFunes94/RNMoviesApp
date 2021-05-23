@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import SearchScreen from '../screens/SearchScreen';
-import SplashScreen from '../components/Splash';
+import SplashScreen from '../screens/SplashScreen';
 import { Movie } from '../interfaces/movieDBinterface';
 
 export type RootStackParams = {
