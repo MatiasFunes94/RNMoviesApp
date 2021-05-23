@@ -4,7 +4,7 @@
 
 ## Technology stack: React Native, React Hooks, Typescript, TMDB API
 
-## Screenshots
+## Gifs
 
 <div align="center">
   <img width="250" height="480" src="https://user-images.githubusercontent.com/66705822/119244919-8304c000-bb4b-11eb-9b6b-2956893a3028.gif">
@@ -14,6 +14,11 @@
   <img width="250" height="480" src="https://user-images.githubusercontent.com/66705822/119244909-6bc5d280-bb4b-11eb-9a31-c5d63dc9c9db.gif">
   <img width="250" height="480" src="https://user-images.githubusercontent.com/66705822/119244907-68324b80-bb4b-11eb-9da2-a4e06b7d8155.gif">
   <img width="250" height="480" src="https://user-images.githubusercontent.com/66705822/119244912-72544a00-bb4b-11eb-9f4d-d13bb3adb3b3.gif">
+</div>
+
+## Screenshots
+
+<div align="center">
   <img width="250" height="480" src="https://user-images.githubusercontent.com/66705822/119244782-543a1a00-bb4a-11eb-97ff-59383a17403c.png">
   <img width="250" height="480" src="https://user-images.githubusercontent.com/66705822/119244783-57350a80-bb4a-11eb-9c0e-eec3cd6bc7f2.png">
   <img width="250" height="480" src="https://user-images.githubusercontent.com/66705822/119244786-6025dc00-bb4a-11eb-8549-aa1fb42df9a3.png">
