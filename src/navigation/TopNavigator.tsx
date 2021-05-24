@@ -23,7 +23,7 @@ const TopTabsNavigator = () => {
       activeTintColor: '#000',
       labelPosition: 'beside-icon',
       labelStyle: styles.tabBarOpt_labelStyle,
-      activeBackgroundColor: 'rgba(255,255,255,0.2)',
+      activeBackgroundColor: 'rgba(255,255,255,0.15)',
       style: styles.tabBarOpt_style,
     }}
     >

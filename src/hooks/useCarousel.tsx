@@ -4,9 +4,9 @@ import {
   Dimensions,
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
@@ -22,6 +22,29 @@ export const useCarousel = (data) => {
   const imageH = height * 1.54;
 
   const scrollX = useRef(new Animated.Value(0)).current
+
+  const renderFlatlistBluredImage = () => {
+    return (
+      data.map((movie, index) => {
+        const inputRange = [
+          (index - 1) * width,
+          index * width,
+          (index + 1) * width,
+        ]
+        const opacity = scrollX?.interpolate({
+          inputRange,
+          outputRange: ['0', '1', '0']
+        })
+        return <Animated.Image
+          key={index}
+          source={{ uri: imageUrl(movie.poster_path) }}
+          style={[StyleSheet.absoluteFillObject, { opacity }]}
+          blurRadius={50}
+        />
+      }
+      )
+    )
+  }
 
   const keyExtractor = (item, index) => String(index)
 
@@ -40,12 +63,12 @@ export const useCarousel = (data) => {
 
   const renderSwipeText = () => (
     <View style={styles.containerSwipe}>
-      <Icon name='arrow-up' size={35} color='#fff' />
+      <Icon name='chevron-up-circle-outline' size={50} color='#fff' />
       <Text style={styles.swipeText}>Swipe up</Text>
     </View>
   )
 
-  const renderCarousel = () => {
+  const renderCarouselComponent = () => {
     return (
       <View style={styles.containerCarousel}>
         <Carousel
@@ -68,10 +91,18 @@ export const useCarousel = (data) => {
       </View>
     )
   }
-  
+
+  const renderCarousel = () => (
+    <View>
+      <View style={{ height }}>
+        {scrollX && renderFlatlistBluredImage()}
+      </View>
+      {renderCarouselComponent()}
+    </View>
+  )
+
   return {
     renderCarousel,
-    scrollX,
   }
 }
 

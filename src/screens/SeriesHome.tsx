@@ -12,7 +12,6 @@ import SliderMovie from '../components/SliderMovie';
 
 import { useSeries } from '../hooks/useSeries';
 import { useCarousel } from '../hooks/useCarousel';
-import { useBackgroundBluredImage } from '../hooks/useBackgroundBluredImage';
 import { useAnimation } from '../hooks/useAnimation';
 import { Serie } from '../interfaces/serieDBinterface';
 
@@ -25,8 +24,7 @@ export default () => {
 
   const popularsSeriesToRender = popularsSeries.filter((serie: Serie) => serie.poster_path)
 
-  const { renderCarousel, scrollX } = useCarousel(popularsSeriesToRender);
-  const { renderFlatlistBluredImage } = useBackgroundBluredImage(popularsSeriesToRender, scrollX);
+  const { renderCarousel } = useCarousel(popularsSeriesToRender);
 
   const { height } = Dimensions.get('screen');
 
@@ -53,10 +51,7 @@ export default () => {
     <ScrollView>
       {renderIsLoading()}
       <Animated.View style={{ opacity }}>
-        <View style={{ height }}>
-          {scrollX && renderFlatlistBluredImage()}
-        </View>
-        {popularsSeries && renderCarousel()}
+        {renderCarousel()}
         <View style={styles.container}>
           <SliderMovie data={airingTodaySeries} customStyles={styles.posters} title={'Airing today'} />
           <SliderMovie data={popularsSeries} customStyles={styles.posters} title={'Populars'} />

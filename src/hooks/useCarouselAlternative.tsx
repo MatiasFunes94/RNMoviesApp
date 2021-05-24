@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useRef } from 'react';
 import {
   View,
@@ -8,21 +7,78 @@ import {
   Animated,
   Text,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { Movie } from '../interfaces/movieDBinterface';
 import { imageUrl } from '../utils/images';
 
 export const useCarouselAlternative = (data) => {
 
-  const { width } = Dimensions.get('screen');
+  const { height, width } = Dimensions.get('screen');
   const { navigate } = useNavigation();
 
   const SPACING = 10;
   const ITEM_SIZE = width * 0.713;
+  const BACKDROP_HEIGHT = height * 0.7;
   const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
   const scrollX = useRef(new Animated.Value(0)).current;
+
+  const renderBackDropItem = (item, index) => {
+    if (!item.backdrop_path) {
+      return null;
+    }
+    const translateX = scrollX.interpolate({
+      inputRange: [
+        (index - 2) * ITEM_SIZE,
+        (index - 1) * ITEM_SIZE
+      ],
+      outputRange: [0, width],
+    });
+    return (
+      <Animated.View
+        removeClippedSubviews={false}
+        style={{
+          width: translateX,
+          height,
+          ...styles.backdropContainer
+        }}
+      >
+        <Image
+          source={{ uri: imageUrl(item.backdrop_path) }}
+          style={{
+            width,
+            height: height * 0.7,
+            ...styles.backdropImage
+          }}
+        />
+      </Animated.View>
+    );
+  }
+
+  const renderFlatlistBackground = () => (
+    <View style={{ height: BACKDROP_HEIGHT, width, position: 'absolute' }}>
+      <FlatList
+        data={data}
+        horizontal
+        keyExtractor={(item) => item.id + '-backdrop'}
+        removeClippedSubviews={false}
+        contentContainerStyle={{ width, height: BACKDROP_HEIGHT }}
+        renderItem={({ item, index }) => renderBackDropItem(item, index)}
+      />
+      <LinearGradient
+        colors={['transparent', '#ebecf0']}
+        style={{
+          width,
+          height: height * 0.45,
+          ...styles.linearGradientStyle
+        }}
+      />
+    </View>
+  );
 
   const renderPosterItem = (item, index) => {
     if (!item.poster_path) {
@@ -56,7 +112,7 @@ export const useCarouselAlternative = (data) => {
             style={styles.imagePosterItem} 
           />
         <View style={styles.containerSwipeUp}>
-            <Icon name='arrow-up' size={35} color='#000' />
+            <Icon name='chevron-up-circle-outline' size={50} color='#000' />
             <Text style={styles.swipeUpText}>Swipe up</Text>
         </View>
         </Animated.View>
@@ -85,9 +141,15 @@ export const useCarouselAlternative = (data) => {
     />
   )
 
+  const renderCarouselAlternative = () => (
+    <View style={{ height, backgroundColor: '#ebecf0' }}>
+      {renderFlatlistBackground()}
+      {renderFlatlistCarousel()}
+    </View>
+  )
+
   return {
-    renderFlatlistCarousel,
-    scrollX,
+    renderCarouselAlternative,
   }
 }
 
@@ -113,4 +175,15 @@ const styles = StyleSheet.create({
     width: 150, 
     textAlign: 'center'
   },
+  backdropContainer: {
+    position: 'absolute',
+    overflow: 'hidden',
+  },
+  backdropImage: {
+    position: 'absolute',
+  },
+  linearGradientStyle: {
+    position: 'absolute',
+    bottom: 0,
+  }
 });

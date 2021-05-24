@@ -11,7 +11,6 @@ import {
 import SliderMovie from '../components/SliderMovie';
 import { useMovies } from '../hooks/useMovies';
 import { useCarousel } from '../hooks/useCarousel';
-import { useBackgroundBluredImage } from '../hooks/useBackgroundBluredImage';
 import { useAnimation } from '../hooks/useAnimation';
 import { Movie } from '../interfaces/movieDBinterface';
 
@@ -24,8 +23,7 @@ export default () => {
   
   const nowPlayingToRender = nowPlaying.filter((movie: Movie) => movie.poster_path)
 
-  const { renderCarousel, scrollX } = useCarousel(nowPlayingToRender);
-  const { renderFlatlistBluredImage } = useBackgroundBluredImage(nowPlayingToRender, scrollX);
+  const { renderCarousel } = useCarousel(nowPlayingToRender);
 
   const { height } = Dimensions.get('screen');
 
@@ -52,10 +50,7 @@ export default () => {
     <ScrollView>
       {renderIsLoading()}
       <Animated.View style={{ opacity }}>
-        <View style={{ height }}>
-          {scrollX && renderFlatlistBluredImage()}
-        </View>
-        {nowPlaying && renderCarousel()}
+        {renderCarousel()}
         <View style={styles.container}>
           <SliderMovie data={populars} customStyles={styles.posters} title={'Populars'} />
           <SliderMovie data={topRated} customStyles={styles.posters} title={'Top rated'} />
